@@ -46,9 +46,32 @@ function obtenerStat(datos, nombreStat) {
     return null;
 }
 
+async function compararPokemon(nombre1, nombre2, stat) {
+    const p1 = await buscarPokemon(nombre1);
+    const p2 = await buscarPokemon(nombre2);
 
+    if (!p1 || !p2) {
+        console.log("No se puede comparar: algún pokémon no existe");
+        return;
+    }
 
+    const valor1 = obtenerStat(p1, stat);
+    const valor2 = obtenerStat(p2, stat);
 
+    if (valor1 === null || valor2 === null) {
+        console.log(`La stat "${stat}" no existe. Válidas: hp, attack, defense, special-attack, special-defense, speed`);
+        return;
+    }
+
+    console.log(`${p1.name}: ${valor1} vs ${p2.name}: ${valor2} (${stat})`);
+    if (valor1 > valor2) {
+        console.log(`Gana ${p1.name}`);
+    } else if (valor2 > valor1) {
+        console.log(`Gana ${p2.name}`);
+    } else {
+        console.log("Empate");
+    }
+}
 
 async function main() {
     const bulbasaur = await buscarPokemon("bulbasaur");
