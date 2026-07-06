@@ -74,11 +74,14 @@ async function compararPokemon(nombre1, nombre2, stat) {
 }
 
 async function main() {
-    const bulbasaur = await buscarPokemon("bulbasaur");
-    mostrarFicha(bulbasaur);
+    // 1. snorlax es un tanque: su hp es su stat distintiva
+    await compararPokemon("snorlax", "machamp", "hp");
 
-    const snorlax = await buscarPokemon("snorlax");
-    mostrarFicha(snorlax);
+    // 2. dos de mi elección en defense
+    await compararPokemon("onix", "steelix", "defense");
+
+    // 3. stat inexistente: debe avisar, no romperse
+    await compararPokemon("pikachu", "raichu", "fuerza");
 }
 
 main();
