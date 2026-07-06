@@ -37,6 +37,18 @@ function mostrarFicha(datos) {
     }
 }
 
+function obtenerStat(datos, nombreStat) {
+    for (let i = 0; i < datos.stats.length; i++) {
+        if (datos.stats[i].stat.name === nombreStat) {
+            return datos.stats[i].base_stat;
+        }
+    }
+    return null;
+}
+
+
+
+
 
 async function main() {
     const bulbasaur = await buscarPokemon("bulbasaur");
