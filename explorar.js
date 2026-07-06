@@ -35,3 +35,6 @@ async function buscarPokemon(nombre) {
      return datos
 }
 
+async function mostrarFicha(datos) {
+    
+}

@@ -9,15 +9,37 @@ async function buscarPokemon(nombre) {
     return await respuesta.json();
 }
 
-async function main() {
-    const nombres = ["Pikachu", "charmander", "gengar", "noexiste"];
 
-    for (const nombre of nombres) {
-        const pokemon = await buscarPokemon(nombre);
-        if (pokemon !== null) {
-            console.log(pokemon.name, "- id:", pokemon.id);
-        }
+function mostrarFicha(datos) {
+    if (!datos) {
+        console.log("No hay nada que mostrar");
+        return;
     }
+
+    console.log(`${datos.name.toUpperCase()} - Pokédex #${datos.id}`);
+
+    const tipos = datos.types.map(t => t.type.name);
+    console.log("Tipos:", tipos.join(" / "));
+
+    console.log(`Altura: ${datos.height * 10} cm | Peso: ${datos.weight / 10} kg`);
+
+    console.log("Stats:");
+    for (const s of datos.stats) {
+        console.log(`  ${s.stat.name}: ${s.base_stat}`);
+    }
+
+    console.log("Habilidades:");
+    for (const h of datos.abilities) {
+        console.log(`  ${h.ability.name}${h.is_hidden ? " (oculta)" : ""}`);
+    }
+}
+
+async function main() {
+    const bulbasaur = await buscarPokemon("bulbasaur");
+    mostrarFicha(bulbasaur);
+
+    const snorlax = await buscarPokemon("snorlax");
+    mostrarFicha(snorlax);
 }
 
 main();
