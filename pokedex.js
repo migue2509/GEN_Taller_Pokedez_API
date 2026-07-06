@@ -9,6 +9,9 @@ async function buscarPokemon(nombre) {
     return await respuesta.json();
 }
 
+//Las funciones separas nos ayudan a cumplir un pricipio solid,
+// donde cada funcion tiene una sola funcionalidad, esto nos sirve
+//para cuando un proceso cambie, internamente solo se modifique ese proceso.
 
 function mostrarFicha(datos) {
     if (!datos) {
