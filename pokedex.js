@@ -37,6 +37,7 @@ function mostrarFicha(datos) {
     }
 }
 
+
 async function main() {
     const bulbasaur = await buscarPokemon("bulbasaur");
     mostrarFicha(bulbasaur);

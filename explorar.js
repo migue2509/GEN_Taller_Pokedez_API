@@ -34,7 +34,3 @@ async function buscarPokemon(nombre) {
      const datos = await respuesta.json()
      return datos
 }
-
-async function mostrarFicha(datos) {
-    
-}
