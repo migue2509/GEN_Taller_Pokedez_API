@@ -73,6 +73,27 @@ async function compararPokemon(nombre1, nombre2, stat) {
     }
 }
 
+async function pokemonMasFuerte(listaNombres, stat) {
+    let mejorNombre = null;
+    let mejorValor = -1; // imposible de superar por abajo
+
+    for (const nombre of listaNombres) {
+        const pokemon = await buscarPokemon(nombre);
+        if (!pokemon) continue; // no existe, saltar
+
+        const valor = obtenerStat(pokemon, stat);
+        if (valor === null) continue; // stat inválida, saltar
+
+        if (valor > mejorValor) {
+            mejorValor = valor;
+            mejorNombre = pokemon.name;
+        }
+    }
+
+    console.log(`El más fuerte en ${stat} es ${mejorNombre} con ${mejorValor}`);
+    return mejorNombre;
+}
+
 async function main() {
     // 1. snorlax es un tanque: su hp es su stat distintiva
     await compararPokemon("snorlax", "machamp", "hp");
@@ -82,6 +103,20 @@ async function main() {
 
     // 3. stat inexistente: debe avisar, no romperse
     await compararPokemon("pikachu", "raichu", "fuerza");
+
+    // Ejercicio 5: Desafío final
+    // 1. mi equipo de 6
+    const equipo = ["pikachu", "snorlax", "gengar", "machamp", "onix", "dragonite"];
+
+    // 2. el más fuerte en attack
+    const ganadorAttack = await pokemonMasFuerte(equipo, "attack");
+
+    // 3. el más fuerte en defense
+    await pokemonMasFuerte(equipo, "defense");
+
+    // 4. ficha del ganador en attack 
+    const datosGanador = await buscarPokemon(ganadorAttack);
+    mostrarFicha(datosGanador);
 }
 
 main();
